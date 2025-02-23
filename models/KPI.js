@@ -65,14 +65,23 @@ const KPISchema = new Schema(
       currency: "USD",
       get: (v) => v / 100,
     },
-    // expensesByCategory: {
-    //   type: Map,
-    //   of: {
-    //     type: mongoose.Types.Currency,
-    //     currency: "USD",
-    //     get: (v) => v / 100,
-    //   },
-    // },
+    expensesByCategory: {
+      salaries: {
+        type: mongoose.Types.Currency,
+        currency: "USD",
+        get: (v) => v / 100
+      },
+      supplies: {
+        type: mongoose.Types.Currency,
+        currency: "USD",
+        get: (v) => v / 100
+      },
+      services: {
+        type: mongoose.Types.Currency,
+        currency: "USD",
+        get: (v) => v / 100
+      }
+    },
    expensesByCategory: {
     type: Map,
     of: Number
