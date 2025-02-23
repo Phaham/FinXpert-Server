@@ -78,8 +78,22 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
-  .then(async () => {
-    app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
+  .then(() => {
+    app.listen(PORT, '0.0.0.0', () => 
+      console.log(`Server running on port ${PORT}`)
+    );
+  })
+  .catch((err) => {
+    console.error("Error connecting to the database:", err);
+  });
+
+// mongoose
+//   .connect(process.env.MONGO_URL, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
+//   .then(async () => {
+//     app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
 
 
     // await mongoose.connection.db.dropDatabase();
@@ -87,5 +101,5 @@ mongoose
     // Product.insertMany(products);
     // Transaction.insertMany(transactions);
 
-  })
+  // })
   // .catch((error) => console.log(`${error} did not connect`));
