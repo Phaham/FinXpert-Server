@@ -58,28 +58,28 @@ app.get('/', (req, res) => {
   // res.redirect("/");
 })
 
-mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => {
-    console.log("database connected!");
-  })
-  .catch((err) => {
-    console.log("error connecting to database", err);
-  });
+// mongoose
+//   .connect(process.env.MONGO_URL)
+//   .then(() => {
+//     console.log("database connected!");
+//   })
+//   .catch((err) => {
+//     console.log("error connecting to database", err);
+//   });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+// app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}`)
+// })
 ///////////////////
 
 
-// mongoose
-//   .connect(process.env.MONGO_URL, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   })
-//   .then(async () => {
-//     app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(async () => {
+    app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
 
 
     // await mongoose.connection.db.dropDatabase();
