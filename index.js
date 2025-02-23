@@ -58,36 +58,20 @@ app.get('/', (req, res) => {
   // res.redirect("/");
 })
 
-// mongoose
-//   .connect(process.env.MONGO_URL)
-//   .then(() => {
-//     console.log("database connected!");
-//   })
-//   .catch((err) => {
-//     console.log("error connecting to database", err);
-//   });
-
-// app.listen(port, () => {
-//   console.log(`Example app listening on port ${port}`)
-// })
-///////////////////
-
-
 mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_URL)
   .then(() => {
-    console.log("Database connected!");
-    // Uncomment the following lines if you want to seed data
-    // KPI.insertMany(kpis);
-    // Product.insertMany(products);
-    // Transaction.insertMany(transactions);
+    console.log("database connected!");
   })
   .catch((err) => {
-    console.log("Error connecting to database:", err);
+    console.log("error connecting to database", err);
   });
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
+///////////////////
+
 
 
 // mongoose
