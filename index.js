@@ -12,6 +12,7 @@ import KPI from "./models/KPI.js";
 import Product from "./models/Product.js";
 import Transaction from "./models/Transaction.js";
 import { kpis, products, transactions } from "./data/data.js";
+const { MongoClient, ServerApiVersion } = require('mongodb');
 
 /* CONFIGURATIONS */
 dotenv.config();
@@ -58,34 +59,46 @@ app.get('/', (req, res) => {
   // res.redirect("/");
 })
 
-mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => {
-    console.log("database connected!");
-  })
-  .catch((err) => {
-    console.log("error connecting to database", err);
-  });
+// mongoose
+//   .connect(process.env.MONGO_URL)
+//   .then(() => {
+//     console.log("database connected!");
+//   })
+//   .catch((err) => {
+//     console.log("error connecting to database", err);
+//   });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+// app.listen(port, () => {
+//   console.log(`Example app listening on port ${port}`)
+// })
 ///////////////////
 
 
-// mongoose
-//   .connect(process.env.MONGO_URL, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-//   })
-//   .then(() => {
-//     app.listen(PORT, '0.0.0.0', () => 
-//       console.log(`Server running on port ${PORT}`)
-//     );
-//   })
-//   .catch((err) => {
-//     console.error("Error connecting to the database:", err);
-//   });
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const uri = process.env.MONGO_URL;
+
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+
+async function run() {
+  try {
+    // Connect the client to the server	(optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+run().catch(console.dir);
+
 
 // mongoose
 //   .connect(process.env.MONGO_URL, {
