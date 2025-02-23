@@ -12,8 +12,6 @@ import KPI from "./models/KPI.js";
 import Product from "./models/Product.js";
 import Transaction from "./models/Transaction.js";
 import { kpis, products, transactions } from "./data/data.js";
-import { MongoClient, ServerApiVersion } from 'mongodb';
-
 
 /* CONFIGURATIONS */
 dotenv.config();
@@ -35,7 +33,7 @@ const app = express();
 //   credentials: true,
 // };
 // app.use(cors(corsOptions));
-app.use(cors);
+app.use(cors());
 
 // app.use(cors());
 app.use(express.json());
@@ -75,30 +73,21 @@ app.get('/', (req, res) => {
 ///////////////////
 
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
-const uri = process.env.MONGO_URL;
-
-const client = new MongoClient(uri, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
-
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Database connected!");
+    // Uncomment the following lines if you want to seed data
+    // KPI.insertMany(kpis);
+    // Product.insertMany(products);
+    // Transaction.insertMany(transactions);
+  })
+  .catch((err) => {
+    console.log("Error connecting to database:", err);
+  });
 
 
 // mongoose
