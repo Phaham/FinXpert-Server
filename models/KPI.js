@@ -82,10 +82,6 @@ const KPISchema = new Schema(
         get: (v) => v / 100
       }
     },
-   expensesByCategory: {
-    type: Map,
-    of: Number
-   },
     monthlyData: [monthSchema],
     dailyData: [daySchema],
   },
