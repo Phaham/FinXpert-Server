@@ -80,7 +80,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(async () => {
-    app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
+    app.listen(port, '0.0.0.0', () => console.log(`Server running on port ${port}`));
 
 
     // await mongoose.connection.db.dropDatabase();
